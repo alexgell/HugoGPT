@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hugo's Chat</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        #chatbox { width: 80%; max-width: 400px; height: 300px; border: 1px solid #ccc; padding: 10px; overflow-y: auto; margin: 20px auto; background: #f9f9f9; }
+        input { width: 80%; padding: 10px; }
+        button { padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Hugo's Friendly Giraffe Chat</h1>
+    <div id="chatbox"></div>
+    <input type="text" id="userInput" placeholder="Type your message here...">
+    <button onclick="sendMessage()">Send</button>
+
+    <script>
+        async function sendMessage() {
+            let input = document.getElementById("userInput").value;
+            if (!input) return;
+
+            let chatbox = document.getElementById("chatbox");
+            chatbox.innerHTML += `<p><strong>You:</strong> ${input}</p>`;
+
+            document.getElementById("userInput").value = "";
+
+            // Fake AI response (we'll replace this later)
+            let response = "Hello! I'm your friendly giraffe. Let's learn something fun!";
+            chatbox.innerHTML += `<p><strong>Giraffe:</strong> ${response}</p>`;
+
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+    </script>
+</body>
+</html>
