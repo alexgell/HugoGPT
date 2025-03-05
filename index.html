@@ -17,22 +17,33 @@
     <input type="text" id="userInput" placeholder="Type your message here...">
     <button onclick="sendMessage()">Send</button>
 
-    <script>
-        async function sendMessage() {
-            let input = document.getElementById("userInput").value;
-            if (!input) return;
+   <script>
+    async function sendMessage() {
+        let input = document.getElementById("userInput").value;
+        if (!input) return;
 
-            let chatbox = document.getElementById("chatbox");
-            chatbox.innerHTML += `<p><strong>You:</strong> ${input}</p>`;
+        let chatbox = document.getElementById("chatbox");
+        chatbox.innerHTML += `<p><strong>You:</strong> ${input}</p>`;
 
-            document.getElementById("userInput").value = "";
+        document.getElementById("userInput").value = "";
 
-            // Fake AI response (we'll replace this later)
-            let response = "Hello! I'm your friendly giraffe. Let's learn something fun!";
-            chatbox.innerHTML += `<p><strong>Giraffe:</strong> ${response}</p>`;
+        // Send the message to the backend (Replit API)
+        let response = await fetch("https://22339e6b-24e4-4cdf-bde9-1ded31f7cb4f-00-316zn0o5bc550.kirk.replit.dev/chat", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ message: input })
+        });
 
-            chatbox.scrollTop = chatbox.scrollHeight;
-        }
-    </script>
+        let data = await response.json();
+        let reply = data.response;
+
+        // Display the response from the backend
+        chatbox.innerHTML += `<p><strong>Giraffe:</strong> ${reply}</p>`;
+        chatbox.scrollTop = chatbox.scrollHeight;
+    }
+</script>
+
 </body>
 </html>
